@@ -46,7 +46,7 @@ public final class Circle {
 	 */
 	public Circle(Integer searchKey) {
 		this.searchKey = searchKey;
-		this.backgroundColor = Color.web("#FCFCFC");
+		this.backgroundColor = Color.web("#FFFFFF");
 	}
 	
 	/**
@@ -57,7 +57,7 @@ public final class Circle {
 	public Circle(Integer searchKey, Point2D point) {
 		this.searchKey = searchKey;
 		this.point = point;
-		this.backgroundColor = Color.rgb(49, 116, 222);
+		this.backgroundColor = Color.rgb(255, 255, 255);
 		this.setBorderColor(Color.rgb(99, 99, 99));
 		this.fontColor = Color.web("#FCFCFC");
 		
@@ -177,13 +177,13 @@ public final class Circle {
 	 */
 	public void setHighlighter(boolean highlight) {
 		if (highlight) {
-			setFontColor(Color.rgb(49, 116, 222));
+			setFontColor(Color.rgb(255, 255, 255));
 			setBackgroundColor(Color.rgb(155, 244, 167));
 			setBorderColor(Color.rgb(49, 116, 222));
 	
 		} else {
-			setFontColor(Color.web("#FCFCFC"));
-			setBackgroundColor(Color.rgb(49, 116, 222));
+			setFontColor(Color.web("#000000"));
+			setBackgroundColor(Color.rgb(255, 255, 255));
 			setBorderColor(Color.rgb(99, 99, 99));
 		}
 	}

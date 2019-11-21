@@ -40,7 +40,7 @@ public final class TreeIterator implements Iterator<Integer> {
 	public Integer next() throws NoSuchElementException {
 		try {
 			currentNode = queue.remove();
-			return currentNode.rootCircle.getSearchKey();
+			return currentNode.getRootCircle().getSearchKey();
 		} catch (QueueException e) {
 			throw new NoSuchElementException();
 		}
@@ -68,8 +68,8 @@ public final class TreeIterator implements Iterator<Integer> {
 	private void preorder(TreeNode treeNode) {
 		if (treeNode != null) {
 			queue.add(treeNode);
-			preorder(treeNode.leftCircle);
-			preorder(treeNode.rightCircle);
+			preorder(treeNode.getLeftCircle());
+			preorder(treeNode.getRightCircle());
 		}
 	}
 	
@@ -87,9 +87,9 @@ public final class TreeIterator implements Iterator<Integer> {
 	 */
 	private void inorder(TreeNode treeNode) {
 		if (treeNode != null) {
-			inorder(treeNode.leftCircle);
+			inorder(treeNode.getLeftCircle());
 			queue.add(treeNode);
-			inorder(treeNode.rightCircle);
+			inorder(treeNode.getRightCircle());
 		}
 	}
 	
@@ -107,8 +107,8 @@ public final class TreeIterator implements Iterator<Integer> {
 	 */
 	private void postorder(TreeNode treeNode) {
 		if (treeNode != null) {
-			postorder(treeNode.leftCircle);
-			postorder(treeNode.rightCircle);
+			postorder(treeNode.getLeftCircle());
+			postorder(treeNode.getRightCircle());
 			queue.add(treeNode);
 		}
 	}

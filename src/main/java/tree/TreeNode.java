@@ -9,10 +9,11 @@ import shape.Circle;
  */
 public class TreeNode {
 	
-	public Circle rootCircle;
-	public TreeNode leftCircle;
-	public TreeNode rightCircle;
+	private Circle rootCircle;
+	private TreeNode leftCircle;
+	private TreeNode rightCircle;
 	public boolean highlightFlag;
+	private int height;
 	
 	/**
 	 * A binary tree using circle objects.
@@ -21,9 +22,41 @@ public class TreeNode {
 	 * @param rightCircle a right tree circle
 	 */
 	public TreeNode(Circle rootCircle, TreeNode leftCircle, TreeNode rightCircle) {
-		this.rootCircle = rootCircle;
-		this.leftCircle = null;
-		this.rightCircle = null;
+		this.setRootCircle(rootCircle);
+		this.setLeftCircle(null);
+		this.setRightCircle(null);
+		this.setHeight(0);
 	}
 
+	public Circle getRootCircle() {
+		return rootCircle;
+	}
+
+	public void setRootCircle(Circle rootCircle) {
+		this.rootCircle = rootCircle;
+	}
+
+	public TreeNode getLeftCircle() {
+		return leftCircle;
+	}
+
+	public void setLeftCircle(TreeNode leftCircle) {
+		this.leftCircle = leftCircle;
+	}
+
+	public TreeNode getRightCircle() {
+		return rightCircle;
+	}
+
+	public void setRightCircle(TreeNode rightCircle) {
+		this.rightCircle = rightCircle;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
 }

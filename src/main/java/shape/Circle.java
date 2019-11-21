@@ -177,9 +177,9 @@ public final class Circle {
 	 */
 	public void setHighlighter(boolean highlight) {
 		if (highlight) {
-			setFontColor(Color.rgb(255, 255, 255));
-			setBackgroundColor(Color.rgb(155, 244, 167));
-			setBorderColor(Color.rgb(49, 116, 222));
+			setFontColor(Color.rgb(0, 0, 0));
+			setBackgroundColor(Color.rgb(155, 255, 167));
+			setBorderColor(Color.rgb(99, 99, 99));
 	
 		} else {
 			setFontColor(Color.web("#000000"));

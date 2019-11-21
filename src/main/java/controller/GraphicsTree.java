@@ -22,7 +22,7 @@ public final class GraphicsTree extends Canvas {
 	/**
 	 * The initial input values for the tree.
 	 */
-	private static final Integer[] NUMBERS_ARRAY = { 50, 25, 30, 12, 10, 75, 70, 80, 110 };
+	private static final Integer[] NUMBERS_ARRAY = {};
 
 	private BinarySearchTree tree;  	// The BST
 	private TreeIterator treeIterator;  // The BST Iterator
@@ -266,10 +266,10 @@ public final class GraphicsTree extends Canvas {
 		Line newLine = new Line();  // Blank line
 		
 		// If left node is not null then draw a line to it
-		if (treeNode.leftCircle != null) {
+		if (treeNode.getLeftCircle() != null) {
 			newLine.setHighlighter(false);
 			
-			if (treeNode.leftCircle.highlightFlag) {
+			if (treeNode.getLeftCircle().highlightFlag) {
 				newLine.setHighlighter(true);
 			}
 			
@@ -280,15 +280,15 @@ public final class GraphicsTree extends Canvas {
 			newLine.draw(gc);// Draw the line
 			
 			// Recurse left circle nodes
-			drawTree(gc, treeNode.leftCircle, xMin, (xMin + xMax) / 2, yMin + yMax, yMax);
+			drawTree(gc, treeNode.getLeftCircle(), xMin, (xMin + xMax) / 2, yMin + yMax, yMax);
 		}
 
 		// If right node is not null then draw a line to it
-		if (treeNode.rightCircle != null) {
+		if (treeNode.getRightCircle() != null) {
 			newLine.setHighlighter(false);
 			
 			// Color the line if the tree circle is flagged for color 
-			if (treeNode.rightCircle.highlightFlag) {
+			if (treeNode.getRightCircle().highlightFlag) {
 				newLine.setHighlighter(true);
 			}
 	
@@ -299,7 +299,7 @@ public final class GraphicsTree extends Canvas {
 			newLine.draw(gc);// Draw the line
 		
 			// Recurse right circle nodes
-			drawTree(gc, treeNode.rightCircle, (xMin + xMax) / 2, xMax, yMin + yMax, yMax);
+			drawTree(gc, treeNode.getRightCircle(), (xMin + xMax) / 2, xMax, yMin + yMax, yMax);
 		}
 	}
 
@@ -318,29 +318,29 @@ public final class GraphicsTree extends Canvas {
 		Point2D point = new Point2D((xMin + xMax) / 2, yMin + yMax / 2);
 
 		// treeNodes are flagged for highlight: Search and insertion nodes
-		if (treeNode.highlightFlag || Objects.equals(treeNode.rootCircle, insertCircle)) {
+		if (treeNode.highlightFlag || Objects.equals(treeNode.getRootCircle(), insertCircle)) {
 			insertCircle = null;		    // Reset insert circle
 			treeNode.highlightFlag = false; // Reset highlight flag
-			treeNode.rootCircle.setHighlighter(true); // Highlight turned on
-			treeNode.rootCircle.setPoint(point); 	
+			treeNode.getRootCircle().setHighlighter(true); // Highlight turned on
+			treeNode.getRootCircle().setPoint(point);
 
 			// default no highlight
 		} else {
-			treeNode.rootCircle.setHighlighter(false); // Highlight turned off
-			treeNode.rootCircle.setPoint(point);
+			treeNode.getRootCircle().setHighlighter(false); // Highlight turned off
+			treeNode.getRootCircle().setPoint(point);
 		}
 
 		// Draw the circle
-		treeNode.rootCircle.draw(gc);
+		treeNode.getRootCircle().draw(gc);
 
 		// Recurse left circles
-		if (treeNode.leftCircle != null) {
-			drawCircles(gc, treeNode.leftCircle, xMin, (xMin + xMax) / 2, yMin + yMax,	yMax);
+		if (treeNode.getLeftCircle() != null) {
+			drawCircles(gc, treeNode.getLeftCircle(), xMin, (xMin + xMax) / 2, yMin + yMax,	yMax);
 		}
 
 		// Recurse right circles
-		if (treeNode.rightCircle != null) {
-			drawCircles(gc, treeNode.rightCircle, (xMin + xMax) / 2, xMax, yMin + yMax, yMax);
+		if (treeNode.getRightCircle() != null) {
+			drawCircles(gc, treeNode.getRightCircle(), (xMin + xMax) / 2, xMax, yMin + yMax, yMax);
 		}
 	}
 

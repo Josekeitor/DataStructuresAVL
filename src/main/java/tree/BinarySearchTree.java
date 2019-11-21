@@ -1,6 +1,7 @@
 package tree;
 
 import java.util.Objects;
+
 import shape.Circle;
 
 /**
@@ -47,36 +48,108 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 	 */
 	protected TreeNode insertItem(TreeNode tNode, Circle newCircle) {
 		TreeNode newSubtree;
-		
-		if (tNode == null) {
+
+		if(tNode == null) {
 			tNode = new TreeNode(newCircle, null, null);
 			return tNode;
-		}
-		
-		Circle nodeItem = tNode.rootCircle;
+		}else{
+			Circle nodeItem = tNode.getRootCircle();
+			if(newCircle.getSearchKey() > nodeItem.getSearchKey()){
+				newSubtree = insertItem(tNode.getRightCircle(), newCircle);
+				tNode.setRightCircle(newSubtree);
 
-		if(Objects.equals(newCircle.getSearchKey(), nodeItem.getSearchKey())) {
-		    return tNode;
-        }
-
-		if (newCircle.getSearchKey() < nodeItem.getSearchKey()) {
-			newSubtree = insertItem(tNode.leftCircle, newCircle);
-			tNode.leftCircle = newSubtree;
-			return tNode;
+			}else if(newCircle.getSearchKey() < nodeItem.getSearchKey()){
+				newSubtree = insertItem(tNode.getLeftCircle(), newCircle);
+				tNode.setLeftCircle(newSubtree);
+			}
 		}
-		
-		newSubtree = insertItem(tNode.rightCircle, newCircle);
-		tNode.rightCircle = newSubtree;
+		System.out.println("Equilibrium factor: "+calculateEquilibriumFactor(tNode));
+		if(Math.abs(calculateEquilibriumFactor(tNode)) == 2){
+			if(newCircle.getSearchKey()< tNode.getRootCircle().getSearchKey()){
+				if(newCircle.getSearchKey()< tNode.getLeftCircle().getRootCircle().getSearchKey()){
+					tNode=rotateRight(tNode);
+				}else{
+					tNode = rotateTwiceRight(tNode);
+				}
+
+			}else if(newCircle.getSearchKey() > tNode.getRootCircle().getSearchKey()){
+				if(newCircle.getSearchKey()>tNode.getRightCircle().getRootCircle().getSearchKey()){
+					tNode = rotateLeft(tNode);
+				}else{
+					tNode = rotateTwiceLeft(tNode);
+				}
+			}
+		}
 		return tNode;
 	}
+
+	private TreeNode rotateTwiceRight(TreeNode node){
+		node.setLeftCircle(rotateLeft(node.getLeftCircle()));
+		return rotateRight(node);
+	}
+
+	private TreeNode rotateTwiceLeft(TreeNode node){
+		node.setRightCircle(rotateRight(node.getRightCircle()));
+		return rotateLeft(node);
+	}
+
+
 	
 	/**
 	 * Retrieves a circle from the tree.
 	 * @param searchKey a unique identifying value
 	 * @return An integer search key number
 	 */
+
+	private TreeNode rotateRight(TreeNode node){
+		TreeNode temp = node.getLeftCircle();
+		node.setLeftCircle(temp.getRightCircle());
+		temp.setRightCircle(node);
+
+		node.setHeight(max(getHeight(node.getLeftCircle()),getHeight(node.getRightCircle()))+1);
+		temp.setHeight(max(getHeight(temp.getLeftCircle()),getHeight(node))+1);
+
+		//node.setHeight(max(node.getLeftCircle().getHeight(),node.getRightCircle().getHeight())+1);
+		//temp.setHeight(max(temp.getLeftCircle().getHeight(),node.getHeight())+1);
+
+		return temp;
+	}
+
+	private TreeNode rotateLeft(TreeNode node){
+		TreeNode temp = node.getRightCircle();
+
+		node.setRightCircle(temp.getLeftCircle());
+		temp.setLeftCircle(node);
+		node.setHeight(max(getHeight(node.getRightCircle()),getHeight(node.getLeftCircle()))+1);
+		temp.setHeight(max(getHeight(temp.getRightCircle()),getHeight(node))+1);
+		return temp;
+	}
+
 	public Integer retrieveItem(Integer searchKey) {
 		return retrieveItem(root, searchKey);
+	}
+
+	private int calculateEquilibriumFactor(TreeNode root){
+		System.out.println("right Height: "+getHeight(root.getRightCircle()));
+		System.out.println("left Height: "+getHeight(root.getLeftCircle()));
+			return getHeight(root.getLeftCircle()) - (getHeight(root.getRightCircle()));
+		}
+
+
+	private int max(int a, int b){
+		if(a>b){
+			return a;
+		}else{
+			return b;
+		}
+	}
+
+	private int min(int a, int b){
+		if(a<b){
+			return a;
+		}else{
+			return b;
+		}
 	}
 	
 	
@@ -94,16 +167,16 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 
 		} else {
 			tNode.highlightFlag = true;
-			Circle nodeItem = tNode.rootCircle;
+			Circle nodeItem = tNode.getRootCircle();
 			if (Objects.equals(searchKey, nodeItem.getSearchKey())) {
 				tNode.highlightFlag = true;
-				treeItem = tNode.rootCircle.getSearchKey();
+				treeItem = tNode.getRootCircle().getSearchKey();
 			} else if (searchKey < nodeItem.getSearchKey()) {
-				tNode.leftCircle.highlightFlag = true;
-				treeItem = retrieveItem(tNode.leftCircle, searchKey);
+				tNode.getLeftCircle().highlightFlag = true;
+				treeItem = retrieveItem(tNode.getLeftCircle(), searchKey);
 			} else {
-				tNode.rightCircle.highlightFlag = true;
-				treeItem = retrieveItem(tNode.rightCircle, searchKey);
+				tNode.getRightCircle().highlightFlag = true;
+				treeItem = retrieveItem(tNode.getRightCircle(), searchKey);
 			}
 		}
 
@@ -133,18 +206,18 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 			throw new TreeException("tree.TreeException: Item not found");
 		}
 		
-		Circle nodeItem = tNode.rootCircle;
+		Circle nodeItem = tNode.getRootCircle();
 		if (Objects.equals(searchKey, nodeItem.getSearchKey())) {
 			tNode = deleteNode(tNode);
 
 		} else if (searchKey < nodeItem.getSearchKey()) {
-			newSubtree = deleteItem(tNode.leftCircle, searchKey);
-			tNode.leftCircle = newSubtree;
+			newSubtree = deleteItem(tNode.getLeftCircle(), searchKey);
+			tNode.setLeftCircle(newSubtree);
 		}
 
 		else {
-			newSubtree = deleteItem(tNode.rightCircle, searchKey);
-			tNode.rightCircle = newSubtree;
+			newSubtree = deleteItem(tNode.getRightCircle(), searchKey);
+			tNode.setRightCircle(newSubtree);
 		}
 
 		return tNode;
@@ -159,21 +232,21 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 
 		Circle replacementItem;
 
-		if ((tNode.leftCircle == null) && (tNode.rightCircle == null)) {
+		if ((tNode.getLeftCircle() == null) && (tNode.getRightCircle() == null)) {
 			return null;
 		}
 
-		else if (tNode.leftCircle == null) {
-			return tNode.rightCircle;
+		else if (tNode.getLeftCircle() == null) {
+			return tNode.getRightCircle();
 		}
 
-		else if (tNode.rightCircle == null) {
-			return tNode.leftCircle;
+		else if (tNode.getRightCircle() == null) {
+			return tNode.getLeftCircle();
 		} else {
 
-			replacementItem = findLeftmost(tNode.rightCircle);
-			tNode.rootCircle = replacementItem;
-			tNode.rightCircle = deleteLeftmost(tNode.rightCircle);
+			replacementItem = findLeftmost(tNode.getRightCircle());
+			tNode.setRootCircle(replacementItem);
+			tNode.setRightCircle(deleteLeftmost(tNode.getRightCircle()));
 			return tNode;
 		}
 	}
@@ -184,10 +257,10 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 	 * @return
 	 */
 	protected Circle findLeftmost(TreeNode tNode) {
-		if (tNode.leftCircle == null) {
-			return tNode.rootCircle;
+		if (tNode.getLeftCircle() == null) {
+			return tNode.getRootCircle();
 		}
-		return findLeftmost(tNode.leftCircle);
+		return findLeftmost(tNode.getLeftCircle());
 	}
 	
 	/**
@@ -196,10 +269,10 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 	 * @return
 	 */
 	protected TreeNode deleteLeftmost(TreeNode tNode) {
-		if (tNode.leftCircle == null) {
-			return tNode.rightCircle;
+		if (tNode.getLeftCircle() == null) {
+			return tNode.getRightCircle();
 		}
-		tNode.leftCircle = deleteLeftmost(tNode.leftCircle);
+		tNode.setLeftCircle(deleteLeftmost(tNode.getLeftCircle()));
 		return tNode;
 	}
 	
@@ -221,15 +294,15 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 		if (tNode != null) {
 			tNode.highlightFlag = false;
 
-			if (tNode.leftCircle != null) {
-				tNode.leftCircle.highlightFlag = false;
+			if (tNode.getLeftCircle() != null) {
+				tNode.getLeftCircle().highlightFlag = false;
 			}
 
-			if (tNode.rightCircle != null) {
-				tNode.rightCircle.highlightFlag = false;
+			if (tNode.getRightCircle() != null) {
+				tNode.getRightCircle().highlightFlag = false;
 			}
-			resetColor(tNode.leftCircle);
-			resetColor(tNode.rightCircle);
+			resetColor(tNode.getLeftCircle());
+			resetColor(tNode.getRightCircle());
 		}
 	}
 
@@ -241,7 +314,7 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 	public int getHeight(TreeNode root) {
 		if (root == null)
 			return 0;
-		return Math.max(getHeight(root.leftCircle), getHeight(root.rightCircle)) + 1;
+		return Math.max(getHeight(root.getLeftCircle()), getHeight(root.getRightCircle())) + 1;
 	}
 	
 	/**
@@ -252,7 +325,7 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 	public int getSize(TreeNode root) {
 		if (root == null)
 			return 0;
-		return (getSize(root.leftCircle) + getSize(root.rightCircle)) + 1;
+		return (getSize(root.getLeftCircle()) + getSize(root.getRightCircle())) + 1;
 	}
 	
 	@Override

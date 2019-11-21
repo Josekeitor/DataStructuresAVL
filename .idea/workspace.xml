@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa39dde5-8982-452b-95c3-23d6201b91a8" name="Default" comment="Initial commit (submitted clone rep to this rep for collaboration).">
+    <list default="true" id="fa39dde5-8982-452b-95c3-23d6201b91a8" name="Default" comment="Changed background color for nodes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/GraphicsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/GraphicsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/GraphicsTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/GraphicsTree.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/shape/Circle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shape/Circle.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/shape/Circle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/shape/Circle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tree/BinarySearchTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tree/BinarySearchTree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tree/TreeIterator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tree/TreeIterator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tree/TreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tree/TreeNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/style/graphics_controller.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/style/graphics_controller.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/GraphicsTree.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/GraphicsTree.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -321,6 +325,14 @@
       <workItem from="1500012397864" duration="603000" />
       <workItem from="1500360399244" duration="8000" />
     </task>
+    <task id="LOCAL-00001" summary="Changed background color for nodes">
+      <created>1574126186926</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1574126186926</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -344,7 +356,22 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit (submitted clone rep to this rep for collaboration)." />
-    <option name="LAST_COMMIT_MESSAGE" value="Initial commit (submitted clone rep to this rep for collaboration)." />
+    <MESSAGE value="Changed background color for nodes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed background color for nodes" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/main/java/controller/GraphicsTree.java</url>
+          <line>142</line>
+          <properties class="controller.GraphicsTree" method="insert">
+            <option name="EMULATED" value="true" />
+          </properties>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />

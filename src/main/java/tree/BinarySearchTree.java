@@ -65,6 +65,7 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 		}
 		System.out.println("Equilibrium factor: "+calculateEquilibriumFactor(tNode));
 		if(Math.abs(calculateEquilibriumFactor(tNode)) == 2){
+			System.out.println("Unbalanced node: "+ tNode.getRootCircle().getSearchKey());
 			if(newCircle.getSearchKey()< tNode.getRootCircle().getSearchKey()){
 				if(newCircle.getSearchKey()< tNode.getLeftCircle().getRootCircle().getSearchKey()){
 					tNode=rotateRight(tNode);
@@ -130,9 +131,13 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 	}
 
 	private int calculateEquilibriumFactor(TreeNode root){
-		System.out.println("right Height: "+getHeight(root.getRightCircle()));
-		System.out.println("left Height: "+getHeight(root.getLeftCircle()));
+		if(root == null){
+			return 0;
+		}else{
+
 			return getHeight(root.getLeftCircle()) - (getHeight(root.getRightCircle()));
+		}
+
 		}
 
 
@@ -210,6 +215,7 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 		if (Objects.equals(searchKey, nodeItem.getSearchKey())) {
 			tNode = deleteNode(tNode);
 
+
 		} else if (searchKey < nodeItem.getSearchKey()) {
 			newSubtree = deleteItem(tNode.getLeftCircle(), searchKey);
 			tNode.setLeftCircle(newSubtree);
@@ -219,6 +225,37 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 			newSubtree = deleteItem(tNode.getRightCircle(), searchKey);
 			tNode.setRightCircle(newSubtree);
 		}
+
+		if(Math.abs(calculateEquilibriumFactor(tNode)) == 2){
+			System.out.println("Unbalanced node: "+tNode.getRootCircle().getSearchKey());
+			TreeNode comparator;
+
+
+			if(getHeight(tNode.getLeftCircle())> getHeight(tNode.getRightCircle())){
+				comparator =tNode.getLeftCircle();
+
+				if(getHeight(comparator.getLeftCircle())> getHeight(comparator.getRightCircle())){
+					tNode = rotateRight(tNode);
+
+				}else{
+					tNode = rotateTwiceRight(tNode);
+				}
+			}else{
+				comparator = tNode.getRightCircle();
+
+				if(getHeight(comparator.getRightCircle()) > getHeight(comparator.getLeftCircle())){
+					tNode = rotateLeft(tNode);
+				}else{
+					tNode = rotateTwiceLeft(tNode);
+				}
+			}
+		}
+
+
+
+
+
+
 
 		return tNode;
 	}
@@ -249,6 +286,11 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 			tNode.setRightCircle(deleteLeftmost(tNode.getRightCircle()));
 			return tNode;
 		}
+
+
+
+
+
 	}
 
 	/**
@@ -305,6 +347,7 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 			resetColor(tNode.getRightCircle());
 		}
 	}
+
 
 	/**
 	 * Gets the height of the tree

@@ -91,6 +91,12 @@ public final class GraphicsController implements Initializable {
 	/**
 	 *  Performs the action when the insert button is clicked.
 	 */
+
+	@FXML private void onEnter(ActionEvent event){
+		graphicsTree.insert(Integer.parseInt(input_field.getText().trim()));
+		input_field.clear();
+	}
+
 	@FXML private void insertOnAction(ActionEvent event) {
 		try {
 			graphicsTree.insert(Integer.parseInt(input_field.getText().trim()));

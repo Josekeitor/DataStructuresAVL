@@ -15,7 +15,7 @@ import javafx.scene.text.FontWeight;
  * @author Eric Canull
  * @version 1.0
  */
-public final class Circle {
+public final class Circle<T> {
 	
 	/**
 	 * The font for the numbers inside the circle.
@@ -31,7 +31,7 @@ public final class Circle {
 	/**
 	 * The search key for searching and deleting circles.
 	 */
-	private final Integer searchKey;
+	private final T searchKey;
 	
 	// The circle attributes
 	private Point2D point;
@@ -44,7 +44,7 @@ public final class Circle {
 	 * background color, border color, font color, search key.
 	 * @param searchKey a <code>Integer</code> search key for searching and deleting within an index.
 	 */
-	public Circle(Integer searchKey) {
+	public Circle(T searchKey) {
 		this.searchKey = searchKey;
 		this.backgroundColor = Color.web("#FFFFFF");
 	}
@@ -54,7 +54,7 @@ public final class Circle {
 	 * @param searchKey a integer id number for searching and deleting from an index.
 	 * @param point a Cartesian coordinate using x and y float numbers.
 	 */
-	public Circle(Integer searchKey, Point2D point) {
+	public Circle(T searchKey, Point2D point) {
 		this.searchKey = searchKey;
 		this.point = point;
 		this.backgroundColor = Color.rgb(255, 255, 255);
@@ -95,7 +95,7 @@ public final class Circle {
 	 * @return A integer of the circle index value. 
 	 */
 	public Integer getSearchKey() {
-		return this.searchKey;
+		return (Integer) this.searchKey;
 	}
 	
 	/**
@@ -178,7 +178,7 @@ public final class Circle {
 	public void setHighlighter(boolean highlight) {
 		if (highlight) {
 			setFontColor(Color.rgb(0, 0, 0));
-			setBackgroundColor(Color.rgb(155, 255, 167));
+			setBackgroundColor(Color.rgb(155, 255, 170));
 			setBorderColor(Color.rgb(99, 99, 99));
 	
 		} else {

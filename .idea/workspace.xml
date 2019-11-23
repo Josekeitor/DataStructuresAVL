@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa39dde5-8982-452b-95c3-23d6201b91a8" name="Default" comment="Changed background color for nodes">
+    <list default="true" id="fa39dde5-8982-452b-95c3-23d6201b91a8" name="Default" comment="Added AVL feature withouth balancing on delete">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/controller/GraphicsTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/GraphicsTree.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/controller/GraphicsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/controller/GraphicsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/shape/Circle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/shape/Circle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tree/BinarySearchTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tree/BinarySearchTree.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/tree/TreeIterator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tree/TreeIterator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/tree/BinaryTreeBasis.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tree/BinaryTreeBasis.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/tree/TreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/tree/TreeNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/style/graphics_controller.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/style/graphics_controller.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/fxml/FXMLGraphicsPanel.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/fxml/FXMLGraphicsPanel.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/controller/GraphicsController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/GraphicsController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/controller/GraphicsTree.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/controller/GraphicsTree.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fxml/FXMLGraphicsPanel.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/fxml/FXMLGraphicsPanel.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/shape/Circle.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/shape/Circle.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/style/graphics_controller.css" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/style/graphics_controller.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/tree/BinarySearchTree.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tree/BinarySearchTree.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/tree/BinaryTreeBasis.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tree/BinaryTreeBasis.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/tree/TreeIterator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tree/TreeIterator.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/tree/TreeNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/tree/TreeNode.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,6 +57,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -332,7 +341,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574126186926</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added AVL feature withouth balancing on delete">
+      <created>1574373699952</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1574373699952</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -357,7 +373,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit (submitted clone rep to this rep for collaboration)." />
     <MESSAGE value="Changed background color for nodes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Changed background color for nodes" />
+    <MESSAGE value="Added AVL feature withouth balancing on delete" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added AVL feature withouth balancing on delete" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

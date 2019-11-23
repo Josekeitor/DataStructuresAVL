@@ -7,11 +7,11 @@ import shape.Circle;
  * @author Eric Canull
  * @version 1.0
  */
-public class TreeNode {
+public class TreeNode<T> {
 	
 	private Circle rootCircle;
-	private TreeNode leftCircle;
-	private TreeNode rightCircle;
+	private TreeNode<T> leftCircle;
+	private TreeNode<T> rightCircle;
 	public boolean highlightFlag;
 	private int height;
 	

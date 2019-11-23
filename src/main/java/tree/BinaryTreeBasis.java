@@ -6,12 +6,12 @@ import shape.Circle;
  * An abstract base class for a binary tree.
  * @author Eric Canull
  */
-public abstract class BinaryTreeBasis {
+public abstract class BinaryTreeBasis<T> {
 
 	/**
 	 * Inherited by the concrete BST class.
 	 */
-	public TreeNode root;
+	public TreeNode<T> root;
 	
 	/**
 	 * An abstract base class for the BST.

@@ -15,14 +15,14 @@ import java.util.ResourceBundle;
  * @author Eric Canull
  * @version 1.0
  */
-public final class GraphicsController implements Initializable {
+public final class GraphicsController<T extends Comparable<T>> implements Initializable {
 
 	// Panels and other GUI components
 	@FXML private BorderPane root_container;
-	@FXML private TextArea traversal_textarea;
+	@FXML public TextArea traversal_textarea;
 	@FXML private TextField input_field;
 
-	private GraphicsTree graphicsTree;
+	private GraphicsTree<T> graphicsTree;
 
 	/**
 	 * Constructs the GUI components and performs events for displaying and
@@ -46,7 +46,7 @@ public final class GraphicsController implements Initializable {
 	 */
 	@FXML private void searchOnAction(ActionEvent event) {
 		try {
-			graphicsTree.search(Integer.parseInt(input_field.getText().trim()));
+			graphicsTree.search((T)input_field.getText().trim());
 		} catch (NumberFormatException nfe) {
 			Alert alert = new Alert(Alert.AlertType.ERROR,
 					"Error searching for value. The input field can only accept numbers.", 	ButtonType.OK);
@@ -63,7 +63,10 @@ public final class GraphicsController implements Initializable {
 	 */
 	@FXML private void deleteOnAction(ActionEvent event) {
 		try {
-			graphicsTree.delete(Integer.parseInt(input_field.getText().trim()));
+			traversal_textarea.clear();
+			graphicsTree.delete((T)input_field.getText().trim());
+			traversal_textarea.setText(graphicsTree.getMessage());
+
 		} catch (NumberFormatException nfe) {
 			Alert alert = new Alert(Alert.AlertType.ERROR, "Error deleting value. The input field can only accept numbers.",
 					ButtonType.OK);
@@ -93,13 +96,17 @@ public final class GraphicsController implements Initializable {
 	 */
 
 	@FXML private void onEnter(ActionEvent event){
-		graphicsTree.insert(Integer.parseInt(input_field.getText().trim()));
+		traversal_textarea.clear();
+		graphicsTree.insert((T)input_field.getText().trim());
 		input_field.clear();
+		traversal_textarea.setText(graphicsTree.getMessage());
 	}
 
 	@FXML private void insertOnAction(ActionEvent event) {
 		try {
-			graphicsTree.insert(Integer.parseInt(input_field.getText().trim()));
+			traversal_textarea.clear();
+			graphicsTree.insert((T)input_field.getText().trim());
+			traversal_textarea.setText(graphicsTree.getMessage());
 		} catch (NumberFormatException nfe) {
 			Alert alert = new Alert(Alert.AlertType.ERROR, "Error inserting value. The input field can only accept numbers.",
 					ButtonType.OK);

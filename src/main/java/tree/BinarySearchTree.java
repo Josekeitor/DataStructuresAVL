@@ -13,7 +13,10 @@ import shape.Circle;
  * @author Eric Canull
  * @version 1.0
  */
-public final class BinarySearchTree extends BinaryTreeBasis {
+public final class BinarySearchTree<T extends Comparable<T>> extends BinaryTreeBasis<T> {
+
+	private String message;
+
 
 	/**
 	 * Binary search tree.
@@ -27,7 +30,7 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 	 * @param rootCircle
 	 * @Overload Default constructor
 	 */
-	public BinarySearchTree(Circle rootCircle) {
+	public BinarySearchTree(Circle<T> rootCircle) {
 		super(rootCircle);
 	}
 
@@ -35,7 +38,7 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 	 * Inserts a new circle into the tree.
 	 * @param newCircle
 	 */
-	public void insertItem(Circle newCircle) {
+	public void insertItem(Circle<T> newCircle) {
 		root = insertItem(root, newCircle);
 	}
 	
@@ -46,19 +49,20 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 	 * @return 
 	 * @Overload insertItem() 
 	 */
-	protected TreeNode insertItem(TreeNode tNode, Circle newCircle) {
+	protected TreeNode insertItem(TreeNode tNode, Circle<T> newCircle) {
 		TreeNode newSubtree;
+		message ="";
 
 		if(tNode == null) {
 			tNode = new TreeNode(newCircle, null, null);
 			return tNode;
 		}else{
-			Circle nodeItem = tNode.getRootCircle();
-			if(newCircle.getSearchKey() > nodeItem.getSearchKey()){
+			Circle<T> nodeItem = tNode.getRootCircle();
+			if(newCircle.getSearchKey().compareTo(nodeItem.getSearchKey())>0){
 				newSubtree = insertItem(tNode.getRightCircle(), newCircle);
 				tNode.setRightCircle(newSubtree);
 
-			}else if(newCircle.getSearchKey() < nodeItem.getSearchKey()){
+			}else if(newCircle.getSearchKey().compareTo(nodeItem.getSearchKey())<0){
 				newSubtree = insertItem(tNode.getLeftCircle(), newCircle);
 				tNode.setLeftCircle(newSubtree);
 			}
@@ -66,17 +70,29 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 		System.out.println("Equilibrium factor: "+calculateEquilibriumFactor(tNode));
 		if(Math.abs(calculateEquilibriumFactor(tNode)) == 2){
 			System.out.println("Unbalanced node: "+ tNode.getRootCircle().getSearchKey());
-			if(newCircle.getSearchKey()< tNode.getRootCircle().getSearchKey()){
-				if(newCircle.getSearchKey()< tNode.getLeftCircle().getRootCircle().getSearchKey()){
+			if(tNode.getRootCircle().getSearchKey().compareTo(newCircle.getSearchKey()) > 0){
+				if(tNode.getLeftCircle().getRootCircle().getSearchKey().compareTo(newCircle.getSearchKey()) > 0 ){
+
+					message = "Unbalanced node: "+tNode.getRootCircle().getSearchKey()+" fixed with simple right rotation";
 					tNode=rotateRight(tNode);
+
 				}else{
+
+					message = "Unbalanced node: "+tNode.getRootCircle().getSearchKey()+" fixed with double right rotation";
 					tNode = rotateTwiceRight(tNode);
+
 				}
 
-			}else if(newCircle.getSearchKey() > tNode.getRootCircle().getSearchKey()){
-				if(newCircle.getSearchKey()>tNode.getRightCircle().getRootCircle().getSearchKey()){
+			}else if(tNode.getRootCircle().getSearchKey().compareTo(newCircle.getSearchKey()) < 0){
+				if(tNode.getRightCircle().getRootCircle().getSearchKey().compareTo(newCircle.getSearchKey()) < 0){
+
+
+					message = "Unbalanced node: "+tNode.getRootCircle().getSearchKey()+" fixed with simple left rotation";
 					tNode = rotateLeft(tNode);
 				}else{
+
+
+					message = "Unbalanced node: "+tNode.getRootCircle().getSearchKey()+" fixed with double left rotation";
 					tNode = rotateTwiceLeft(tNode);
 				}
 			}
@@ -126,7 +142,7 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 		return temp;
 	}
 
-	public Integer retrieveItem(Integer searchKey) {
+	public T retrieveItem(T searchKey) {
 		return retrieveItem(root, searchKey);
 	}
 
@@ -165,18 +181,19 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 	 * @return An integer search key number
 	 * @Overload retrieveItem()
 	 */
-	protected Integer retrieveItem(TreeNode tNode, Integer searchKey) {
-		Integer treeItem;
+	protected T retrieveItem(TreeNode<T> tNode, T searchKey) {
+		T treeItem;
 		if (tNode == null) {
 			treeItem = null;
 
 		} else {
 			tNode.highlightFlag = true;
-			Circle nodeItem = tNode.getRootCircle();
-			if (Objects.equals(searchKey, nodeItem.getSearchKey())) {
+			Circle<T> nodeItem = tNode.getRootCircle();
+			if (searchKey.compareTo(nodeItem.getSearchKey()) == 0) {
 				tNode.highlightFlag = true;
 				treeItem = tNode.getRootCircle().getSearchKey();
-			} else if (searchKey < nodeItem.getSearchKey()) {
+
+			} else if (searchKey.compareTo(nodeItem.getSearchKey()) < 0) {
 				tNode.getLeftCircle().highlightFlag = true;
 				treeItem = retrieveItem(tNode.getLeftCircle(), searchKey);
 			} else {
@@ -193,7 +210,7 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 	 * @param searchKey a unique identifying value
 	 * @throws TreeException if search key cannot be located.
 	 */
-	public void deleteItem(Integer searchKey) throws TreeException {
+	public void deleteItem(T searchKey) throws TreeException {
 		root = deleteItem(root, searchKey);
 	}
 	
@@ -204,19 +221,20 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 	 * @return A tree.TreeNode from within the tree
 	 * @Overload deleteItem()
 	 */
-	protected TreeNode deleteItem(TreeNode tNode, Integer searchKey) {
-		TreeNode newSubtree;
+	protected TreeNode<T> deleteItem(TreeNode<T> tNode, T searchKey) {
+		TreeNode<T> newSubtree;
+		message ="";
 		
 		if (tNode == null) {
 			throw new TreeException("tree.TreeException: Item not found");
 		}
 		
-		Circle nodeItem = tNode.getRootCircle();
+		Circle<T> nodeItem = tNode.getRootCircle();
 		if (Objects.equals(searchKey, nodeItem.getSearchKey())) {
 			tNode = deleteNode(tNode);
 
 
-		} else if (searchKey < nodeItem.getSearchKey()) {
+		} else if (searchKey.compareTo(nodeItem.getSearchKey()) < 0) {
 			newSubtree = deleteItem(tNode.getLeftCircle(), searchKey);
 			tNode.setLeftCircle(newSubtree);
 		}
@@ -235,21 +253,32 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 				comparator =tNode.getLeftCircle();
 
 				if(getHeight(comparator.getLeftCircle())> getHeight(comparator.getRightCircle())){
+
+					message = "Unbalanced node: "+tNode.getRootCircle().getSearchKey()+" fixed with simple right rotation";
 					tNode = rotateRight(tNode);
 
 				}else{
+
+
+					message = "Unbalanced node: "+tNode.getRootCircle().getSearchKey()+" fixed with double right rotation";
 					tNode = rotateTwiceRight(tNode);
 				}
 			}else{
 				comparator = tNode.getRightCircle();
 
 				if(getHeight(comparator.getRightCircle()) > getHeight(comparator.getLeftCircle())){
+
+					message = "Unbalanced node: "+tNode.getRootCircle().getSearchKey()+" fixed with simple left rotation";
 					tNode = rotateLeft(tNode);
 				}else{
+
+					message = "Unbalanced node: "+tNode.getRootCircle().getSearchKey()+" fixed with double left rotation";
 					tNode = rotateTwiceLeft(tNode);
 				}
 			}
+			System.out.println(message);
 		}
+
 
 
 
@@ -267,7 +296,7 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 	 */
 	protected TreeNode deleteNode(TreeNode tNode) {
 
-		Circle replacementItem;
+		Circle<Integer> replacementItem;
 
 		if ((tNode.getLeftCircle() == null) && (tNode.getRightCircle() == null)) {
 			return null;
@@ -298,7 +327,7 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 	 * @param tNode
 	 * @return
 	 */
-	protected Circle findLeftmost(TreeNode tNode) {
+	protected Circle<Integer> findLeftmost(TreeNode tNode) {
 		if (tNode.getLeftCircle() == null) {
 			return tNode.getRootCircle();
 		}
@@ -332,7 +361,7 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 	 * @param tNode A node in the tree
 	 * @Overload
 	 */
-	protected void resetColor(TreeNode tNode) {
+	private void resetColor(TreeNode tNode) {
 		if (tNode != null) {
 			tNode.highlightFlag = false;
 
@@ -370,9 +399,13 @@ public final class BinarySearchTree extends BinaryTreeBasis {
 			return 0;
 		return (getSize(root.getLeftCircle()) + getSize(root.getRightCircle())) + 1;
 	}
+
+	public String getMessage(){
+		return message;
+	}
 	
 	@Override
-	public void setRootItem(Circle newItem) {
-		root = new TreeNode(newItem, null, null);
+	public void setRootItem(Circle<T> newItem) {
+		root = new TreeNode<>(newItem, null, null);
 	}
 }

@@ -15,7 +15,7 @@ import javafx.scene.text.FontWeight;
  * @author Eric Canull
  * @version 1.0
  */
-public final class Circle<T> {
+public final class Circle<T extends Comparable<T>> {
 	
 	/**
 	 * The font for the numbers inside the circle.
@@ -31,7 +31,7 @@ public final class Circle<T> {
 	/**
 	 * The search key for searching and deleting circles.
 	 */
-	private final T searchKey;
+	private T searchKey;
 	
 	// The circle attributes
 	private Point2D point;
@@ -88,14 +88,14 @@ public final class Circle<T> {
 	}
 
 	private String getKey() {
-		return Integer.toString(getSearchKey());
+		return String.valueOf(getSearchKey());
 	}
 	/**
 	 * Get the search key number.
-	 * @return A integer of the circle index value. 
+	 * @return A T element of the circle index value.
 	 */
-	public Integer getSearchKey() {
-		return (Integer) this.searchKey;
+	public T getSearchKey() {
+		return this.searchKey;
 	}
 	
 	/**

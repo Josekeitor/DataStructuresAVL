@@ -9,11 +9,11 @@ import java.util.NoSuchElementException;
  * @author Eric Canull
  * @version 1.0
  */
-public final class TreeIterator implements Iterator<Integer> {
+public final class TreeIterator<T extends Comparable<T>> implements Iterator<T> {
 	
-	private BinaryTreeBasis binaryTree;
-	private TreeNode currentNode;
-	private LinkedList<TreeNode> queue;
+	private BinaryTreeBasis<T> binaryTree;
+	private TreeNode<T> currentNode;
+	private LinkedList<TreeNode<T>> queue;
 	
 	/**
 	 * Iterates through the tree using the java.util.Iterator<E> interface.
@@ -37,7 +37,7 @@ public final class TreeIterator implements Iterator<Integer> {
 	 * Gets the next element in the queue.
 	 * @return An <code>Integer</code> numbered search key.
 	 */
-	public Integer next() throws NoSuchElementException {
+	public T next() throws NoSuchElementException {
 		try {
 			currentNode = queue.remove();
 			return currentNode.getRootCircle().getSearchKey();
@@ -65,7 +65,7 @@ public final class TreeIterator implements Iterator<Integer> {
 	 * Recursively traverses the tree in-order
 	 * @param treeNode A tree with nodes
 	 */
-	private void preorder(TreeNode treeNode) {
+	private void preorder(TreeNode<T> treeNode) {
 		if (treeNode != null) {
 			queue.add(treeNode);
 			preorder(treeNode.getLeftCircle());
@@ -85,7 +85,7 @@ public final class TreeIterator implements Iterator<Integer> {
 	 * Recursively traverses the tree in-order
 	 * @param treeNode A tree with nodes
 	 */
-	private void inorder(TreeNode treeNode) {
+	private void inorder(TreeNode<T> treeNode) {
 		if (treeNode != null) {
 			inorder(treeNode.getLeftCircle());
 			queue.add(treeNode);
@@ -105,7 +105,7 @@ public final class TreeIterator implements Iterator<Integer> {
 	 * Recursively traverses the tree post-order
 	 * @param treeNode A tree with nodes
 	 */
-	private void postorder(TreeNode treeNode) {
+	private void postorder(TreeNode<T> treeNode) {
 		if (treeNode != null) {
 			postorder(treeNode.getLeftCircle());
 			postorder(treeNode.getRightCircle());

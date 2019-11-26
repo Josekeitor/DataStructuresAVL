@@ -8,6 +8,8 @@ import javafx.scene.control.ButtonType;
 
 import tree.*;
 import shape.*;
+
+import java.util.LinkedList;
 import java.util.Objects;
 
 /**
@@ -17,16 +19,16 @@ import java.util.Objects;
  * @version 1.0
  */
 @SuppressWarnings("serial")
-public final class GraphicsTree extends Canvas {
+public final class GraphicsTree<T extends Comparable<T>> extends Canvas {
 
 	/**
 	 * The initial input values for the tree.
 	 */
-	private static final Integer[] NUMBERS_ARRAY = {};
+	private  final LinkedList<T> NUMBERS_ARRAY;
 
-	private BinarySearchTree tree;  	// The BST
+	private BinarySearchTree<T> tree;  	// The BST
 	private TreeIterator treeIterator;  // The BST Iterator
-	private Circle insertCircle;        // Insert circle 
+	private Circle<T> insertCircle;        // Insert circle
 	private int maxTreeHeight; 			// Max tree height;
 
 	/**
@@ -37,14 +39,14 @@ public final class GraphicsTree extends Canvas {
 
 		widthProperty().addListener(evt -> drawTree());
 		heightProperty().addListener(evt -> drawTree());
-
+		NUMBERS_ARRAY = new LinkedList<>();
 		createTree();
 	}
 	
 	/**
      * Changes the tree rendered by this panel.
      */
-    public void setTree(BinarySearchTree root) {  tree = root; }
+    public void setTree(BinarySearchTree<T> root) {  tree = root; }
 
 	/**
 	 * Creates the initial binary search tree with the default values
@@ -52,11 +54,11 @@ public final class GraphicsTree extends Canvas {
 	 */
 	public void createTree() {
 
-		tree = new BinarySearchTree(); // Create an empty tree
+		tree = new BinarySearchTree<>(); // Create an empty tree
 		setMaxTreeHeight(7); 		   // Set the default max tree height 
 
-		for (Integer number : NUMBERS_ARRAY) {
-			Circle circle = new Circle(number);
+		for (T element : NUMBERS_ARRAY) {
+			Circle<T> circle = new Circle<>(element);
 			tree.insertItem(circle);
 		}
 
@@ -80,7 +82,7 @@ public final class GraphicsTree extends Canvas {
 	 * 
 	 * @param searchKey a <code>Integer</code> number for finding a tree.TreeNode
 	 */
-	public void search(Integer searchKey) {
+	public void search(T searchKey) {
 
 		// Try to search for a number.
 		try { 
@@ -140,8 +142,8 @@ public final class GraphicsTree extends Canvas {
 	 * displays an notification request to change the max height.
 	 * @param searchKey a <code>integer</code> number to insert in the tree
 	 */
-	public void insert(Integer searchKey) {
-		insertCircle = new Circle(searchKey);
+	public void insert(T searchKey) {
+		insertCircle = new Circle<>(searchKey);
 		tree.insertItem(insertCircle);
 		int heightOption = 2;
 		drawTree();
@@ -209,9 +211,9 @@ public final class GraphicsTree extends Canvas {
 	/**
 	 * Deletes a number from the tree. If the number is not able to be deleted display
 	 * a notification message.
-	 * @param searchKey <code>integer</code> number to delete from the tree
+	 * @param searchKey <code>T</code> number to delete from the tree
 	 */
-	public void delete(Integer searchKey) {
+	public void delete(T searchKey) {
 		try {
 			tree.deleteItem(searchKey);
 		} catch (TreeException e) {
@@ -259,7 +261,7 @@ public final class GraphicsTree extends Canvas {
 	 * @param yMin the maximum width to draw on the component
 	 * @param yMax the maximum height to draw on the component
 	 */
-	protected void drawTree(GraphicsContext gc, TreeNode treeNode, double xMin, double xMax, double yMin, double yMax) {
+	protected void drawTree(GraphicsContext gc, TreeNode<T> treeNode, double xMin, double xMax, double yMin, double yMax) {
 
 		Point2D linePoint1; 	// Point_1
 		Point2D linePoint2;   // Point_2
@@ -312,7 +314,7 @@ public final class GraphicsTree extends Canvas {
 	 * @param yMin the minimum height to draw on the component
 	 * @param yMax the maximum height to draw on the component
 	 */
-	public void drawCircles(GraphicsContext gc, TreeNode treeNode, double xMin, double xMax, double yMin, double yMax) {
+	public void drawCircles(GraphicsContext gc, TreeNode<T> treeNode, double xMin, double xMax, double yMin, double yMax) {
 
 		// Create a new point
 		Point2D point = new Point2D((xMin + xMax) / 2, yMin + yMax / 2);
@@ -343,6 +345,11 @@ public final class GraphicsTree extends Canvas {
 			drawCircles(gc, treeNode.getRightCircle(), (xMin + xMax) / 2, xMax, yMin + yMax, yMax);
 		}
 	}
+
+	public String getMessage(){
+		return tree.getMessage();
+	}
+
 
 	public void clearCanvas() {
 		getGraphicsContext2D().clearRect(0, 0, this.getWidth(), this.getHeight());

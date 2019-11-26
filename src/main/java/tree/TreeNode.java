@@ -7,9 +7,9 @@ import shape.Circle;
  * @author Eric Canull
  * @version 1.0
  */
-public class TreeNode<T> {
+public class TreeNode<T extends Comparable<T>> {
 	
-	private Circle rootCircle;
+	private Circle<T> rootCircle;
 	private TreeNode<T> leftCircle;
 	private TreeNode<T> rightCircle;
 	public boolean highlightFlag;
@@ -21,34 +21,34 @@ public class TreeNode<T> {
 	 * @param leftCircle a left tree circle
 	 * @param rightCircle a right tree circle
 	 */
-	public TreeNode(Circle rootCircle, TreeNode leftCircle, TreeNode rightCircle) {
+	public TreeNode(Circle<T> rootCircle, TreeNode<T> leftCircle, TreeNode<T> rightCircle) {
 		this.setRootCircle(rootCircle);
 		this.setLeftCircle(null);
 		this.setRightCircle(null);
 		this.setHeight(0);
 	}
 
-	public Circle getRootCircle() {
+	public Circle<T> getRootCircle() {
 		return rootCircle;
 	}
 
-	public void setRootCircle(Circle rootCircle) {
+	public void setRootCircle(Circle<T> rootCircle) {
 		this.rootCircle = rootCircle;
 	}
 
-	public TreeNode getLeftCircle() {
+	public TreeNode<T> getLeftCircle() {
 		return leftCircle;
 	}
 
-	public void setLeftCircle(TreeNode leftCircle) {
+	public void setLeftCircle(TreeNode<T> leftCircle) {
 		this.leftCircle = leftCircle;
 	}
 
-	public TreeNode getRightCircle() {
+	public TreeNode<T> getRightCircle() {
 		return rightCircle;
 	}
 
-	public void setRightCircle(TreeNode rightCircle) {
+	public void setRightCircle(TreeNode<T> rightCircle) {
 		this.rightCircle = rightCircle;
 	}
 

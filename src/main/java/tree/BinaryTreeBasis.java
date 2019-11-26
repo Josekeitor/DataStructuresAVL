@@ -6,7 +6,7 @@ import shape.Circle;
  * An abstract base class for a binary tree.
  * @author Eric Canull
  */
-public abstract class BinaryTreeBasis<T> {
+public abstract class BinaryTreeBasis<T extends Comparable<T>> {
 
 	/**
 	 * Inherited by the concrete BST class.
@@ -25,8 +25,8 @@ public abstract class BinaryTreeBasis<T> {
 	 * @param rootCircle
 	 * @Overload Default constructor
 	 */
-	public BinaryTreeBasis(Circle rootCircle) {
-		root = new TreeNode(rootCircle, null, null);
+	public BinaryTreeBasis(Circle<T> rootCircle) {
+		root = new TreeNode<>(rootCircle, null, null);
 	}
 	
 	/**
@@ -49,7 +49,7 @@ public abstract class BinaryTreeBasis<T> {
 	 * @return A shape.Circle object representing the tree root
 	 * @throws TreeException
 	 */
-	public TreeNode getRoot() throws TreeException {
+	public TreeNode<T> getRoot() throws TreeException {
 		if (root == null) {
 			throw new TreeException("tree.TreeException: Empty Tree");
 		}
@@ -61,6 +61,6 @@ public abstract class BinaryTreeBasis<T> {
 	 * Sets the root item. 
 	 * @param newCircle a shape.Circle object with a tree search key
 	 */
-	public abstract void setRootItem(Circle newCircle);
+	public abstract void setRootItem(Circle<T> newCircle);
 
 }
